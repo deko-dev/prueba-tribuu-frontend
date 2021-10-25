@@ -1,0 +1,96 @@
+<form nz-form [nzLayout]="'inline'" [formGroup]="userForm" (ngSubmit)="onSubmit($event)" class="flex flex-col justify-between items-start gap-4">
+    <nz-form-item class="w-10/12 mx-auto">
+        <nz-form-control nzErrorTip="Please input your name!">
+            <nz-input-group class="h-12" nzPrefixIcon="user">
+                <input formControlName="name" nz-input placeholder="name" class="font-medium text-base" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="w-10/12 mx-auto">
+        <nz-form-control nzErrorTip="Please input your lastname!">
+            <nz-input-group class="h-12" nzPrefixIcon="user">
+                <input formControlName="lastname" nz-input type="text" placeholder="lastname" class="font-medium text-base" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="w-10/12 mx-auto">
+        <nz-form-control nzErrorTip="Please input your email!">
+            <nz-input-group class="h-12" nzPrefixIcon="user">
+                <input formControlName="email" nz-input type="email" placeholder="correo@example.com" class="font-medium text-base" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="w-10/12 mx-auto">
+        <nz-form-control nzErrorTip="Please select your language!">
+            <nz-input-group class="h-12" nzPrefixIcon="global">
+                <nz-select nzSize="default" nzMode="multiple" nzPlaceHolder="Please select your language" formControlName="language" class="font-medium text-base">
+                    <nz-option *ngFor="let language of listLanguages" [nzLabel]="language" [nzValue]="language">
+                    </nz-option>
+                </nz-select>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="w-10/12 mx-auto">
+        <nz-form-control nzErrorTip="Please select your country!">
+            <nz-input-group class="h-12" nzPrefixIcon="global">
+                <nz-select nzSize="default" nzPlaceHolder="Please select your country" formControlName="country" (ngModelChange)="countryInfo($event)" class="font-medium text-base">
+                    <nz-option *ngFor="let country of dataCountries" [nzLabel]="country.name.common" [nzValue]="country.name.common">
+                    </nz-option>
+                </nz-select>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <div class="optionals-fields w-10/12 mx-auto h-auto" *ngIf="countrySelected">
+        <nz-form-item class="w-full hidden">
+            <nz-form-control>
+                <nz-input-group class="h-12">
+                    <input formControlName="countryCodeName" nz-input type="text" class="font-medium text-base" [value]="countrySelected.cca2"/>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>    
+
+        <nz-form-item class="w-full hidden">
+            <nz-form-control>
+                <nz-input-group class="h-12" nzPrefixIcon="phone">
+                    <input formControlName="countryCode" nz-input type="text" class="font-medium text-base" [value]="coutryCode()"/>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item class="w-full">
+            <nz-form-control nzErrorTip="Please input your phone!">
+                <nz-input-group class="h-12" nzPrefixIcon="phone" [nzAddOnBefore]="coutryCode()">
+                    <input formControlName="phone" nz-input type="tel" placeholder="0000000000" class="font-medium text-base h-full w-full" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Currency Data -->
+        <nz-form-item class="w-full">
+            <nz-form-control>
+                <nz-input-group class="h-12">
+                    <input nz-input class="font-medium text-base h-full w-full mb-4" [disabled]="true" [value]="currencyCode().code" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="w-full">
+            <nz-form-control>
+                <nz-input-group class="h-12">
+                    <input nz-input class="font-medium text-base h-full w-full mb-4" [disabled]="true" [value]="currencyCode().name" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="w-full">
+            <nz-form-control>
+                <nz-input-group class="h-12">
+                    <input nz-input class="font-medium text-base h-full w-full mb-4" [disabled]="true" [value]="currencyCode().symbol" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+    </div>
+    <button type="submit" nzSize="large" nz-button nzType="primary" class="w-2/4 mx-auto rounded-3xl">Edit</button>
+</form>

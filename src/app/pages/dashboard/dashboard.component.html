@@ -1,0 +1,24 @@
+<div class="content-cards w-full px-4 flex flex-row flex-wrap justify-between items-start">
+    <nz-card class="w-4/12" [nzActions]="[actionEdit]" *ngFor="let user of users">
+        <div class="user-data mb-2">
+            <h2 class="font-semibold text-lg">Datos de Usuario:</h2>
+            <div class="content pl-3">
+                <h3 class="text-base font-medium">{{ user.name }} {{ user.lastname }}</h3>
+                <h3 class="text-base font-medium">{{ user.email }}</h3>
+                <h3 class="text-base font-medium">Country: <span class="font-light">{{ user.country }}, {{ user.countryCodeName }}</span></h3>
+                <h3 class="text-base font-medium">Phone: <span class="font-light">{{ user.countryCode }}{{ user.phone }}</span></h3>
+            </div>
+        </div>
+        <div class="currency-data">
+            <h2 class="font-semibold text-lg">Currency:</h2>
+            <div class="content pl-3">
+                <h3 class="text-base font-medium">Code: <span class="font-light">{{ user.currency.code }}</span></h3>
+                <h3 class="text-base font-medium">Name: <span class="font-light">{{ user.currency.name }}</span></h3>
+                <h3 class="text-base font-medium">Symbol: <span class="font-light">{{ user.currency.symbol}}</span></h3>
+            </div>
+        </div>
+        <ng-template #actionEdit>
+            <i nz-icon nzType="edit" (click)="editUser(user)"></i>
+        </ng-template>
+    </nz-card>
+</div>
